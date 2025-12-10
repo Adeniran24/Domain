@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.ObjectModel;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,14 +12,21 @@ using System.Windows.Shapes;
 
 namespace Domain
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    
+
     public partial class MainWindow : Window
     {
+        private ObservableCollection<DomainEntry> entries =
+           new ObservableCollection<DomainEntry>();
+        private readonly string csudhPath;
+        private readonly string domainekPath;
+
         public MainWindow()
         {
             InitializeComponent();
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            csudhPath = System.IO.Path.Combine(basePath, "csudh.txt");
+            domainekPath = System.IO.Path.Combine(basePath, "domainek.txt");
         }
     }
 }

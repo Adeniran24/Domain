@@ -17,5 +17,19 @@ namespace Domain
             DomainName = domainName;
             IpAddress = ipAddress;
         }
+        public DomainEntry(string line)
+        {
+
+            var parts = line.Split(';');
+            if (parts.Length >= 2)
+            {
+                DomainName = parts[0].Trim();
+                IpAddress = parts[1].Trim();
+            }
+            else
+            {
+                throw new ArgumentException("Hibás sorformátum: " + line);
+            }
+        }
     }
 }

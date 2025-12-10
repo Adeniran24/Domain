@@ -9,6 +9,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System;
+using System.IO;
 
 namespace Domain
 {
@@ -27,6 +29,35 @@ namespace Domain
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
             csudhPath = System.IO.Path.Combine(basePath, "csudh.txt");
             domainekPath = System.IO.Path.Combine(basePath, "domainek.txt");
+            LoadFromFile();
+        }
+        private void LoadFromFile()
+        {
+            try
+            {
+                if (!File.Exists(csudhPath))
+                {
+                    MessageBox.Show("A csudh.txt nem található!\nElérési út: " + csudhPath);
+                    return;
+                }
+
+
+                var lines = File.ReadAllLines(csudhPath, Encoding.UTF8);
+
+                entries.Clear();
+
+                for (int i = 1; i < lines.Length; i++)
+                {
+                    if (string.IsNullOrWhiteSpace(lines[i]))
+                        continue;
+
+                    entries.Add(new DomainEntry(lines[i]));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hiba a beolvasáskor: " + ex.Message);
+            }
         }
     }
 }

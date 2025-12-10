@@ -31,5 +31,9 @@ namespace Domain
                 throw new ArgumentException("Hibás sorformátum: " + line);
             }
         }
+        public override string ToString()
+        {
+            return $"{DomainName};{IpAddress}";
+        }
     }
 }

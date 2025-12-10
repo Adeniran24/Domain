@@ -59,5 +59,29 @@ namespace Domain
                 MessageBox.Show("Hiba a beolvasáskor: " + ex.Message);
             }
         }
+        private void btnBevitel_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string domain = tbDomain.Text.Trim();
+                string ip = tbIp.Text.Trim();
+
+                if (string.IsNullOrWhiteSpace(domain) ||
+                    string.IsNullOrWhiteSpace(ip))
+                {
+                    MessageBox.Show("Mindkét mezőt ki kell tölteni!");
+                    return;
+                }
+
+                entries.Add(new DomainEntry(domain, ip));
+
+                tbDomain.Text = "";
+                tbIp.Text = "";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Hiba bevitelkor: " + ex.Message);
+            }
+        }
     }
 }

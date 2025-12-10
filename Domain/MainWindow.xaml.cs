@@ -30,6 +30,7 @@ namespace Domain
             csudhPath = System.IO.Path.Combine(basePath, "csudh.txt");
             domainekPath = System.IO.Path.Combine(basePath, "domainek.txt");
             LoadFromFile();
+            dgDomains.ItemsSource = entries;
         }
         private void LoadFromFile()
         {
@@ -81,6 +82,25 @@ namespace Domain
             catch (Exception ex)
             {
                 MessageBox.Show("Hiba bevitelkor: " + ex.Message);
+            }
+        }
+        private void btnMentes_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                var lines = entries
+                    .Select(e2 => e2.ToString())
+                    .ToList();
+
+                File.WriteAllLines(domainekPath, lines, Encoding.UTF8);
+
+                MessageBox.Show("Sikeres Mentés!");
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
             }
         }
     }
